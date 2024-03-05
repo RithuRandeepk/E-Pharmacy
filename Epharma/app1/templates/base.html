@@ -1,0 +1,524 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+     <script src="https://kit.fontawesome.com/99aa11eb92.js" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/99aa11eb92.js" crossorigin="anonymous"></script>
+    <title>EasyPharma</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="{% static 'js/myscript.js' %}"></script>
+    <script src="{% static 'js/all.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+</head>
+<body>
+    <div class="top">
+        
+        <nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#">  <img src="{% static 'images/logo.png' %}" width="200" height="200" alt="EasyPharma Logo" class="logomedical">
+                <h2 style=" font-family: Sofia, sans-serif;
+                font-size: 28px;margin-top: -18px;color: rgb(30, 117, 30);
+                text-shadow: 3px 3px 3px #ababab;padding-left: 17px;" >EasyPharma</h2></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                
+                <div>
+                    <div class="row row-cols-8">
+                        <div class="col">
+                {%if not request.user.is_authenticated%}
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><button type="button" class="join" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" style="background-color: white;">  <i class="fa-solid fa-user-plus fa-xl" style="color: #1f5120;"></i></button></a>
+                </li>
+                </div>
+                <div class="col">
+
+                </div>
+                <div class="col">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'loginpage' %}"> <button type="button" class="join1" data-bs-whatever="@getbootstrap" style="background-color: white;" > <i class="fa-solid fa-user fa-xl" style="color: #1f5120;"></i></button></a>
+                </li>
+                </div>
+               
+                
+                <div class="col">
+                  {%else%}
+                <li class="nav-item">
+                  <span class="badge bg-danger">{% if totalitem > 0 %} {{totalitem}}{%endif%}</span>
+                    <a class="nav-link" href="{% url 'showcart'%}"> <button type="button" class="join1" data-bs-whatever="@getbootstrap" style="background-color: white;" > <i class="fa-solid fa-cart-shopping fa-xl" style="color: #1f513b;"></i></button></a>
+                </li>
+                <div class="col">
+                    
+                </div>
+                </div>
+                
+                <div class="col">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout'%}"> <button type="button" class="join1" data-bs-whatever="@getbootstrap" style="background-color: white;" > <i class="fa-solid fa-right-from-bracket fa-2xl" style="color: #3f644d;"></i></button></a>
+                </li>
+               
+                </div>
+             
+                  <div class="col" style="color: rgb(16, 35, 16); font-weight: 500; font-style: normal;font-size: larger;font-family: Georgia;">
+                    <li class="nav-item">
+                      {% if request.user.is_authenticated %}
+                          Welcome, {{ request.user.first_name }}!
+                      {% else %}
+                          Welcome, guest!
+                      {% endif %}
+                   
+                        
+                    </li>
+            
+                   
+                    </div>
+                  
+                    
+                
+
+                   
+                 
+
+              
+               
+                </div>
+                </div>
+                  <div class="col" style="margin-top: 10px;">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" style="color: rgb(16, 35, 16); font-weight: 500; font-style: normal;font-size: larger;font-family: Georgia;" href="#" role="button" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          {{ request.user.first_name }}
+                      </a>
+  
+                      <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{% url 'profile'%}">Profile</a>
+                          <li><a class="dropdown-item" href="{% url 'passwordchange'%}">Change Passord</a>
+                          <li><a class="dropdown-item" href="{% url 'orders'%}">Orders</a>
+                          <li><a class="dropdown-item" href="{% url 'logout'%}">Logout</a>
+                         
+                        
+                      </ul>
+                  </li>
+  
+                     
+                  </div>
+                  <li class="nav-item">
+                    <span class="badge bg-danger">{% if wishitem > 0 %} {{wishitem}}{%endif%}</span>
+                    
+                      <a class="nav-link" href="{%url 'showwishlist'%}"> <button type="button" class="join1" data-bs-whatever="@getbootstrap" style="background-color: white;" > <i class="fa-sharp fa-solid fa-heart fa-2xl" style="color: #63E6BE;"></i></button></a>
+                    
+                  </li>
+                
+            
+                </ul>
+                {%endif%}
+              
+                <form class="d-flex" role="search" action="/search">
+                  <input class="form-control me-2" style="border-color: green;" type="search" placeholder="Search" aria-label="Search" name="search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+            </div>
+         
+      
+            
+        </nav>
+    
+    </div>
+    <br>
+
+    <nav class="navbar navbar-expand-lg" style="background-color: rgb(108, 202, 108);">
+      
+
+
+
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color: rgb(16, 35, 16); font-weight: 500; font-style: normal;font-size: larger;font-family: Georgia;" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Baby Care
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'prdtview' 'Diapers' %}">Diapers</a>
+                        <li><a class="dropdown-item" href="{% url 'prdtview' 'Wipes' %}">Wipes</a>
+                        <li><a class="dropdown-item" href="{% url 'prdtview' 'Babyfood' %}">Baby Food</a>
+                        <li><a class="dropdown-item" href="{% url 'prdtview' 'Babyskincare' %}">Skin Care</a>
+                        <li><a class="dropdown-item" href="{% url 'prdtview' 'Babyhaircare' %}">Hair Care</a>
+                      
+                    </ul>
+                </li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="font-family: Georgia;color: rgb(16, 35, 16); font-weight: 500; font-style: normal;font-size: larger;" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Women Care
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li> <a class="dropdown-item" href="#">Sanitary Pad </a>
+                        <li><a class="dropdown-item" href="#">Menstrual Cup</a>
+                        <li><a class="dropdown-item" href="#">Intimate Care</a>
+                        <li><a class="dropdown-item" href="#">Health Tonics</a>
+                        <li><a class="dropdown-item" href="#">Panty Liners</a>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="font-family: Georgia;color: rgb(16, 35, 16); font-weight: 500; font-style: normal;font-size: larger;" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Personal Care
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li> <a class="dropdown-item" href="#">Bath & Body</a>
+                        <li><a class="dropdown-item" href="#">Skin Care</a>
+                        <li><a class="dropdown-item" href="#">Hair Care</a>
+                        <li><a class="dropdown-item" href="#">Oral Care</a>
+                        <li><a class="dropdown-item" href="#">Sexual Wellness</a>
+                        <li><a class="dropdown-item" href="#">Adult Diapers</a>
+                        <li><a class="dropdown-item" href="#">Oral Care</a>
+
+
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="font-family: Georgia;color: rgb(16, 35, 16); font-weight: 500; font-style: normal;font-size: larger;" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Home Essentials
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'prdtview' 'Insectrepplents' %}">Insect Repplents</a>
+                        <li><a class="dropdown-item" href="{% url 'prdtview' 'Antisepticliquid'%}">Antiseptic Liquid</a>
+                        <li><a class="dropdown-item" href="{% url 'prdtview' 'Roomfreshners'%}">Room Freshners</a>
+                        <li><a class="dropdown-item" href="#">Cleaning Essentials</a>
+                       
+
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="font-family: Georgia;color: rgb(16, 35, 16); font-weight: 500; font-style: normal;font-size: larger;" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Health Condition
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li> <a class="dropdown-item" href="#">Mental Wellness</a>
+                        <li><a class="dropdown-item" href="#">Liver Care</a>
+                        <li><a class="dropdown-item" href="#">Diabetic</a>
+                        <li><a class="dropdown-item" href="#">Kidney Care</a>
+                        <li><a class="dropdown-item" href="#">Pain Relief</a>
+                        <li><a class="dropdown-item" href="#">Cardiac</a>
+                        <li><a class="dropdown-item" href="#">Stomech Care</a>
+                        <li><a class="dropdown-item" href="#">Eye Care</a>
+                        <li><a class="dropdown-item" href="#">Cold & Cough</a>
+
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" style="font-family: Georgia;color: rgb(16, 35, 16); font-weight: 500; font-style: normal;font-size: larger;" href="#" role="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      Heath Devices
+                  </a>
+                  <ul class="dropdown-menu">
+                      <li> <a class="dropdown-item" href="#">Face Mask</a>
+                      <li><a class="dropdown-item" href="#">Gloves</a>
+                      <li><a class="dropdown-item" href="#">Covid Test Kit</a>
+                      <li><a class="dropdown-item" href="#">Pregnancy Test Kit</a>
+                      <li><a class="dropdown-item" href="#">Weighing Machine</a>
+
+                  </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="font-family: Georgia;color: rgb(16, 35, 16); font-weight: 500; font-style: normal;font-size: larger;" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Ayurveda
+                </a>
+                <ul class="dropdown-menu">
+                    <li> <a class="dropdown-item" href="#">Honey</a>
+                    <li><a class="dropdown-item" href="#">Chyawanaprash</a>
+                    <li><a class="dropdown-item" href="#">baby soap</a>
+                  
+
+                </ul>
+            </li>
+
+
+
+
+            </ul>
+                         
+
+        </div>
+    </div>
+</nav>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog">
+      <div class="modal-content">
+    
+          <div class="modal-body">
+      
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h3>Register Here</h3>
+              <center>
+              <form action="{% url 'regpage' %}" id="Register" method="post">
+              {% csrf_token %}
+            
+              <br>
+              <input type="text" name="uname" id="name" placeholder="Enter Your UserName" required>
+              <br>
+              
+      
+              
+              <br>
+              <input type="email" name="email" id="email" placeholder="Enter Your Mail id" required>
+              <br>
+          
+              <br>
+              <input type="tel" name="phno" id="phno" placeholder="Enter Your Phone Number" required>
+              <br>
+              
+              <br>
+              <input type="password" name="pass1" id="pass1" placeholder="Enter Your Password" required>
+              <br>
+              
+              <br>
+              <input type="password" name="pass2" id="pass2" placeholder="Confirm Your Password" required>
+              <br>
+              <br>
+              <button class="sbutton-container" type="submit">Sign Up</button>
+  
+  
+              </form>
+              </center>
+          
+          </div>
+      
+      
+      </div>
+  </div>
+  </div>
+
+<div>
+    <br>
+   
+    <h3 style="font-family: 'Times New Roman', Times, serif;">Shop By Category</h3>
+    <br><br>
+</div>
+<div class="row row-cols-6" class="cards1">
+    <div class="col">
+      <div class="card" onclick="goToAnotherPage('homeesntl')" style="width: 10rem;box-sizing: border-box;height: 40px;">
+        <img src="{% static 'images/fresh.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text" style="text-align: center;">Home Essentials</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="col">
+        <div class="card" onclick="goToAnotherPage('diapers')"  style="width: 10rem;box-sizing: border-box;height: 40px;">
+            <img src="{% static 'images/Diapercategory.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text" style="text-align: center;">Diapers</p>
+            </div>
+          </div>
+
+
+    </div>
+    <div class="col">
+        <div class="card" onclick="goToAnotherPage('skincare')"  style="width: 10rem;box-sizing: border-box;height: 40px;">
+            <img src="{% static 'images/scarecategory.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text" style="text-align: center;">Skin care</p>
+            </div>
+          </div>
+
+
+    </div>
+    <div class="col">
+        <div class="card" onclick="goToAnotherPage('womencare')" style="width: 10rem;box-sizing: border-box;height: 40px;">
+            <img src="{% static 'images/wcarecategory.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text" style="text-align: center;">Women care</p>
+            </div>
+          </div>
+
+
+    </div>
+    <div class="col">
+        <div class="card" onclick="goToAnotherPage('winter')" style="width: 10rem;box-sizing: border-box;height: 30px;">
+            <img src="{% static 'images/vickscategory.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text" style="text-align: center;">Winter Essentials</p>
+            </div>
+          </div>
+
+
+    </div>
+    <div class="col">
+      <div class="card" onclick="goToAnotherPage('oral')" style="width: 10rem;box-sizing: border-box;height: 40px;">
+        <img src="{% static 'images/oralcarecategory.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text" style="text-align: center;">Oral Care</p>
+        </div>
+      </div>
+
+    </div>
+</div>
+<br><br><br><br><br><br><br><br>
+
+<div class="row row-cols-6" onclick="goToAnotherPage('mask')" class="cards2" style="border-radius: 3px;border-color: #1f513b;">
+    <div class="col">
+      <div class="card" style="width: 10rem;box-sizing: border-box;height: 40px;">
+        <img src="{% static 'images/n95category.webp' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text" style="text-align: center;">Face Mask</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="col">
+        <div class="card" onclick="goToAnotherPage('bath')" style="width: 10rem;box-sizing: border-box;height: 40px;">
+            <img src="{% static 'images/dettoolcategory.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text" style="text-align: center;">Bath & Body</p>
+            </div>
+          </div>
+
+
+    </div>
+    <div class="col">
+        <div class="card" onclick="goToAnotherPage('haircare')" style="width: 10rem;box-sizing: border-box;height: 40px;">
+            <img src="{% static 'images/haircarecategory.webp' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text" style="text-align: center;">Hair care</p>
+            </div>
+          </div>
+
+
+    </div>
+    <div class="col">
+        <div class="card" onclick="goToAnotherPage('babycare')" style="width: 10rem;box-sizing: border-box;height: 40px;">
+            <img src="{% static 'images/blotion.webp' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text" style="text-align: center;">Baby Care</p>
+            </div>
+          </div>
+
+
+    </div>
+    <div class="col">
+        <div class="card" onclick="goToAnotherPage('healthdevice')" style="width: 10rem;box-sizing: border-box;height: 30px;">
+            <img src="{% static 'images/pkitcategory.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text" style="text-align: center;">Health Devices</p>
+            </div>
+          </div>
+
+
+    </div>
+    <div class="col">
+      <div class="card" onclick="goToAnotherPage('sanitarypad')" style="width: 10rem;box-sizing: border-box;height: 30px;">
+          <img src="{% static 'images/sanitarypadcategory.webp' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text" style="text-align: center;">Sanitary pads</p>
+          </div>
+        </div>
+
+
+  </div>
+
+  
+</div>
+<br><br><br><br><br>
+
+{%block information%} {%endblock information%}
+
+
+
+
+{%block maincontent %}{%endblock maincontent%}
+{%block product%}{%endblock product%}
+
+{%block detailview%}{%endblock detailview%}
+
+<div class="footr">
+  
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="{% url 'about' %}">About us</a></li>
+            <li><a href="{% url 'contact' %}">Contact us</a></li>
+            <li><a href="#">privacy policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Featured Categories</h4>
+          <ul>
+            <li><a href="#">Baby Care</a></li>
+            <li><a href="#">Women Care</a></li>
+            <li><a href="#">Personal Care</a></li>
+            <li><a href="#">Home Essentials</a></li>
+            <li><a href="#">Health Conditions</a></li>
+          <li><a href="#">Health Devices</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#">Order Medicine</a></li>
+            <li><a href="#">Health Care Products</a></li>
+         
+          </ul>
+        </div>
+       
+        <div class="footer-col">
+          <h4>follow us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p> Copyright : 2024 || Developed by Rithu</p>
+ </footer>
+
+</div>
+
+
+  
+  
+
+
+
+
+    
+</body>
+</html>

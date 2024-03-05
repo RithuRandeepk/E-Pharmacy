@@ -1,0 +1,60 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block maincontent %}
+
+<style>
+    .card-body {
+        border: 1px solid #dddddd; 
+        border-radius: 10px;
+        padding: 15px; 
+        margin-bottom: 15px; 
+    }
+
+    .card-body p {
+        font-family: 'Arial', sans-serif; 
+        font-size: 14px; 
+     
+    }
+    /* .btn {
+        background-color: #4CAF50; 
+        color: #ffffff;
+    } */
+</style>
+<div class="container my-5">
+    <div class="row">
+    <h3> Welcome <span class="text-capitalize">{{ request.user }}</span> </h3>
+
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+            <li class="d-grid"><a href="{% url 'profile' %}" class="btn">Profile</a></li>
+            <br>
+            <li class="d-grid"><a href="{% url 'address' %}" class="btn btn-success">Address</a></li>
+            </ul>
+        </div>
+
+        <div class="col-sm-8 offset-sm-1">
+            <div class="row">
+                {% for ad in add%}
+                <div class="col-sm-6">
+                    <div class="card-body">
+                        <h3>Address {{forloop.counter}}</h3>
+                        <p>Name: {{ad.name}}</p>
+                        <p>House Name: {{ad.housename}}</p>
+                        <p>Locality: {{ad.locality}}</p>
+                        <p>Mobile: {{ad.mobile}}</p>
+                        <p>City: {{ad.City}}</p>
+                        <p>State: {{ad.state}}</p>
+                        <p>Pincode: {{ad.zipcode}}</p>
+                        <p class="text-center"><a href="{% url 'updateaddress' pk=ad.id %}" type="button" class="btn btn-success">Update</a></p>
+                      
+                    </div>
+                </div>
+        
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</div>    
+
+{% endblock maincontent %}
